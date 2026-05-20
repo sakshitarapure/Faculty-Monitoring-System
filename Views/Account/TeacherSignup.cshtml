@@ -1,0 +1,65 @@
+﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <div class="card shadow p-4 col-md-5 mx-auto">
+
+        <h3 class="text-center text-primary mb-4">Signup as Teacher</h3>
+
+        <form method="post" action="/Account/Register">
+
+            <!-- NAME -->
+            <input type="text" name="Name" placeholder="Full Name" class="form-control mb-3" required />
+
+            <!-- EMAIL -->
+            <input type="email" name="Email" placeholder="Email" class="form-control mb-3" required />
+
+            <!-- PASSWORD -->
+            <input type="password" name="Password"
+                   placeholder="Password (8 characters, alphanumeric)"
+                   class="form-control mb-3" required />
+
+            <!-- PROGRAM -->
+            <label class="fw-bold">Program</label>
+            <select name="Department" class="form-control mb-3" required>
+                <option value="">Select Program</option>
+
+                <option value="BCA">BCA</option>
+                <option value="MCA">MCA</option>
+
+                <option value="BSc - Computer Science">BSc - Computer Science</option>
+                <option value="MSc - Computer Science">MSc - Computer Science</option>
+
+                <option value="BBA">BBA</option>
+                <option value="MBA">MBA</option>
+
+                <option value="BPharm">BPharm</option>
+                <option value="MPharm">MPharm</option>
+            </select>
+
+            <!-- 🔥 SEMESTER (NEW) -->
+            <label class="fw-bold">Semester</label>
+            <select name="Semester" class="form-control mb-3" required>
+                <option value="">Select Semester</option>
+                <option>Semester 1</option>
+                <option>Semester 2</option>
+                <option>Semester 3</option>
+                <option>Semester 4</option>
+                <option>Semester 5</option>
+                <option>Semester 6</option>
+                <option>Semester 7</option>
+                <option>Semester 8</option>
+            </select>
+
+            <!-- ROLE -->
+            <input type="hidden" name="Role" value="Teacher" />
+
+            <!-- BUTTON -->
+            <button class="btn btn-primary w-100">Register as Teacher</button>
+        </form>
+
+        <p class="text-center mt-3">
+            Already have account? <a href="/Account/Login">Login</a>
+        </p>
+
+    </div>
+</div>

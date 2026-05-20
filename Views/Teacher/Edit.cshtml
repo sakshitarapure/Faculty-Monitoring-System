@@ -1,0 +1,68 @@
+﻿@model FacultyMonitoringSystem.Models.TimetableEntry
+
+<div class="container mt-5">
+
+    <div class="card p-4 col-md-5 mx-auto shadow">
+
+        <h3 class="text-center mb-3">Edit Timetable</h3>
+
+        <form method="post">
+
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <!-- DAY -->
+            <label class="fw-bold">Day</label>
+            <select name="Day" class="form-control mb-3" required>
+                <option selected>@Model.Day</option>
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+            </select>
+
+            <!-- START TIME -->
+            <label class="fw-bold">Start Time</label>
+            <input type="time" name="StartTime" value="@Model.StartTime" class="form-control mb-3" required />
+
+            <!-- END TIME -->
+            <label class="fw-bold">End Time</label>
+            <input type="time" name="EndTime" value="@Model.EndTime" class="form-control mb-3" required />
+
+            <!-- SUBJECT -->
+            <label class="fw-bold">Subject</label>
+            <input type="text" name="Subject" value="@Model.Subject" class="form-control mb-3" required />
+
+            <!-- ROOM -->
+            <label class="fw-bold">Room</label>
+            <input type="text" name="Room" value="@Model.Room" class="form-control mb-3" required />
+
+            <!-- 🔥 SEMESTER (FIXED DROPDOWN) -->
+            <label class="fw-bold">Semester</label>
+            <select name="Semester" class="form-control mb-3" required>
+                <option selected>@Model.Semester</option>
+                <option>Semester 1</option>
+                <option>Semester 2</option>
+                <option>Semester 3</option>
+                <option>Semester 4</option>
+                <option>Semester 5</option>
+                <option>Semester 6</option>
+                <option>Semester 7</option>
+                <option>Semester 8</option>
+            </select>
+
+            <!-- ACADEMIC YEAR -->
+            <label class="fw-bold">Academic Year</label>
+            <input type="text" name="AcademicYear" value="@Model.AcademicYear" class="form-control mb-4" required />
+
+            <!-- BUTTONS -->
+            <div class="d-flex justify-content-between">
+                <a href="/Teacher/Dashboard" class="btn btn-secondary">⬅ Back</a>
+                <button class="btn btn-primary">Update</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

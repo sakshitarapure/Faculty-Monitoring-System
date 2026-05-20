@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FacultyMonitoringSystem</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+            body {
+                background: #f4f6f9;
+            }
+
+            .topbar {
+                background: linear-gradient(90deg, #1e3c72, #2a5298);
+                color: white;
+            }
+
+                .topbar a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                    .topbar a:hover {
+                        color: #ffd700;
+                    }
+
+            .footer {
+                margin-top: 40px;
+                padding: 10px;
+                text-align: center;
+                color: #666;
+            }
+
+            /* 🔥 CHAT BUTTON */
+            .chat-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 10000;
+                background: #2a5298;
+                color: white;
+                border: none;
+                padding: 12px 15px;
+                border-radius: 50%;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            /* 🔥 CHATBOX */
+            .chatbox {
+                display: none;
+                position: fixed;
+                bottom: 80px;
+                right: 20px;
+                width: 350px;
+                height: 520px; /* increased height */
+                z-index: 9999;
+                box-shadow: 0 0 15px rgba(0,0,0,0.3);
+                border-radius: 10px;
+                overflow: hidden;
+                background: white;
+            }
+
+            .chat-header {
+                background: #2a5298;
+                padding: 6px;
+                text-align: right;
+            }
+
+                .chat-header button {
+                    background: red;
+                    color: white;
+                    border: none;
+                    padding: 5px 10px;
+                    cursor: pointer;
+                }
+    </style>
+</head>
+
+<body>
+
+    <!-- 🔥 TOP BAR -->
+    <div class="topbar d-flex justify-content-between align-items-center px-4 py-2 shadow">
+
+        <div>
+            <h5 class="mb-0">Faculty Monitoring System</h5>
+        </div>
+
+        <div>
+            <a href="/" class="btn btn-sm btn-light me-2">🏠 Home</a>
+
+            @{
+                var role = Context.Session.GetString("Role");
+            }
+
+            @if (role == "Teacher")
+            {
+                <a href="/Teacher/Dashboard" class="btn btn-sm btn-warning">⬅ Back</a>
+            }
+            else if (role == "HOD")
+            {
+                <a href="/HOD/Dashboard" class="btn btn-sm btn-warning">⬅ Back</a>
+            }
+            else if (role == "Principal")
+            {
+                <a href="/Principal/Search" class="btn btn-sm btn-warning">⬅ Back</a>
+            }
+            else
+            {
+                <a href="/" class="btn btn-sm btn-warning">⬅ Back</a>
+            }
+        </div>
+
+    </div>
+
+    <!-- 🔹 MAIN CONTENT -->
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    <!-- 🔹 FOOTER -->
+    <div class="footer">
+        © 2026 Faculty Monitoring System
+    </div>
+
+    <!-- 🔥 CHAT BUTTON -->
+    <button class="chat-btn" onclick="toggleChat()">💬</button>
+
+    <!-- 🔥 CHATBOX -->
+    <div id="chatbox" class="chatbox">
+
+        <div class="chat-header">
+            <button onclick="toggleChat()">✖</button>
+        </div>
+
+        <iframe src="https://cdn.botpress.cloud/webchat/v3.6/shareable.html?configUrl=https://files.bpcontent.cloud/2026/03/29/18/20260329180056-0563OMWG.json"
+                style="width:100%; height: calc(100% - 40px); border:none;">
+        </iframe>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 🔥 TOGGLE SCRIPT -->
+    <script>
+            function toggleChat() {
+                var chat = document.getElementById("chatbox");
+
+                if (chat.style.display === "none" || chat.style.display === "") {
+                    chat.style.display = "block";
+                } else {
+                    chat.style.display = "none";
+                }
+            }
+    </script>
+
+</body>
+</html>

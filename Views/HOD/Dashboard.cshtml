@@ -1,0 +1,95 @@
+﻿@model List<FacultyMonitoringSystem.Models.TimetableEntry>
+
+<div class="container mt-4">
+
+    <h4 class="text-center mb-3">
+        Welcome, @Context.Session.GetString("UserName") 👋
+    </h4>
+
+    <h2 class="text-center mb-4">HOD Dashboard</h2>
+
+    <table class="table table-bordered text-center shadow">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Teacher Name</th>
+                <th>Department</th>
+                <th>Semester</th>
+                <th>Academic Year</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var entries = Model.Where(t => t.TeacherId == item.TeacherId).ToList();
+
+                string overallStatus = "Pending";
+
+                if (entries.All(e => e.Status == "Approved"))
+                    overallStatus = "Approved";
+                else if (entries.Any(e => e.Status == "Rejected"))
+                    overallStatus = "Rejected";
+
+                <tr>
+                    <td>@item.TeacherName</td>
+                    <td>@item.Department</td>
+                    <td>@item.Semester</td>
+                    <td>@item.AcademicYear</td>
+
+                    <td>
+                        @if (overallStatus == "Approved")
+                        {
+                            <span class="badge bg-success">Approved</span>
+                        }
+                        else if (overallStatus == "Rejected")
+                        {
+                            <span class="badge bg-danger">Rejected</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        }
+                    </td>
+
+                    <td>
+                        <a href="/HOD/ViewTimetable?id=@item.TeacherId"
+                           class="btn btn-primary btn-sm">View</a>
+
+                        <a href="/HOD/Review?id=@item.TeacherId"
+                           class="btn btn-warning btn-sm">Review</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- 🔥 CHATBOT (ADD AT VERY BOTTOM) -->
+<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+
+<script>
+    window.addEventListener("load", function () {
+
+    if (window.botpressWebChat) {
+
+    window.botpressWebChat.init({
+    configUrl: "https://files.bpcontent.cloud/2026/03/29/18/20260329180056-0563OMWG.json",
+    showPoweredBy: false
+    });
+
+    // 🔥 FORCE OPEN AFTER 2 SEC
+    setTimeout(function () {
+    window.botpressWebChat.sendEvent({ type: "show" });
+    }, 2000);
+
+    } else {
+    console.log("Botpress not loaded");
+    }
+
+    });
+</script>

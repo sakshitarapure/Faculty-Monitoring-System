@@ -1,0 +1,97 @@
+﻿<div class="container mt-5">
+    <div class="card p-4 col-md-5 mx-auto shadow">
+
+        <h3 class="text-center mb-3">Add Timetable</h3>
+
+        <!-- 🔥 INSTRUCTIONS -->
+        <div class="alert alert-info">
+            ⏰ <b>Instructions:</b><br />
+            • Use <b>fixed time slots only</b><br />
+            • College timing: <b>09:30 to 16:30</b><br />
+            • Each lecture = <b>1 hour</b><br />
+            • Do NOT enter custom times
+        </div>
+
+        <!-- ✅ FORM START -->
+        <form method="post">
+
+            <!-- DAY -->
+            <label class="fw-bold">Day</label>
+            <select name="Day" class="form-control mb-3" required>
+                <option value="">Select Day</option>
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+            </select>
+
+            <!-- TIME SLOT -->
+            <label class="fw-bold">Time Slot</label>
+            <select class="form-control mb-3" onchange="setTime(this.value)" required>
+                <option value="">Select Slot</option>
+                <option value="09:30-10:30">09:30 - 10:30</option>
+                <option value="10:30-11:30">10:30 - 11:30</option>
+                <option value="11:30-12:30">11:30 - 12:30</option>
+                <option value="12:30-13:30">12:30 - 13:30</option>
+                <option value="13:30-14:30">13:30 - 14:30</option>
+                <option value="14:30-15:30">14:30 - 15:30</option>
+                <option value="15:30-16:30">15:30 - 16:30</option>
+                
+
+            </select>
+
+            <!-- hidden fields -->
+            <input type="hidden" name="StartTime" id="startTime" />
+            <input type="hidden" name="EndTime" id="endTime" />
+
+            <!-- SUBJECT -->
+            <label class="fw-bold">Subject</label>
+            <input type="text" name="Subject" class="form-control mb-3" required />
+
+            <!-- ROOM -->
+            <label class="fw-bold">Room</label>
+            <input type="text" name="Room" class="form-control mb-3" required />
+
+            <!-- SEMESTER -->
+            <label class="fw-bold">Semester</label>
+            <select name="Semester" class="form-control mb-3" required>
+                <option value="">Select Semester</option>
+                <option>Semester 1</option>
+                <option>Semester 2</option>
+                <option>Semester 3</option>
+                <option>Semester 4</option>
+                <option>Semester 5</option>
+                <option>Semester 6</option>
+                <option>Semester 7</option>
+                <option>Semester 8</option>
+            </select>
+
+            <!-- ACADEMIC YEAR -->
+            <label class="fw-bold">Academic Year</label>
+            <input type="text" name="AcademicYear"
+                   value="2025-2026"
+                   class="form-control mb-4" required />
+
+            <!-- BUTTONS -->
+            <div class="d-flex justify-content-between">
+                <a href="/Teacher/Dashboard" class="btn btn-secondary">⬅ Back</a>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+
+        </form>
+        <!-- ✅ FORM END -->
+
+    </div>
+</div>
+
+<script>
+    function setTime(value) {
+        if (value) {
+            var parts = value.split("-");
+            document.getElementById("startTime").value = parts[0];
+            document.getElementById("endTime").value = parts[1];
+        }
+    }
+</script>

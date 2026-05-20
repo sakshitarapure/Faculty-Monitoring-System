@@ -1,0 +1,76 @@
+﻿@model List<FacultyMonitoringSystem.Models.TimetableEntry>
+
+<div class="container mt-4">
+
+    <!-- 🔥 WELCOME -->
+    <h4 class="text-center mb-2">
+        Welcome, @Context.Session.GetString("UserName") 👋
+    </h4>
+
+    <h2 class="text-center mb-4">Teacher Dashboard</h2>
+
+    <!-- 🔥 BUTTONS -->
+    <div class="text-center mb-4">
+        <a href="/Teacher/AddTimetable" class="btn btn-success me-2">➕ Add Timetable</a>
+        <a href="/Teacher/ViewMyTimetable" class="btn btn-primary">📅 View Timetable</a>
+    </div>
+
+    <!-- 🔥 GLOBAL STATUS + REMARKS -->
+    @{
+        var first = Model.FirstOrDefault();
+    }
+
+    @if (first != null)
+    {
+        <div class="alert text-center mb-4
+            @(first.Status == "Approved" ? "alert-success" :
+                           first.Status == "Rejected" ? "alert-danger" : "alert-warning")">
+
+            <h5>
+                Status: <b>@first.Status</b>
+            </h5>
+
+            <p>
+                Remarks: <b>@(string.IsNullOrEmpty(first.Remarks) ? "No comments" : first.Remarks)</b>
+            </p>
+        </div>
+    }
+
+    <!-- 🔥 TIMETABLE TABLE -->
+    <table class="table table-bordered text-center shadow">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Subject</th>
+                <th>Room</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Day</td>
+                    <td>@item.StartTime - @item.EndTime</td>
+                    <td>@item.Subject</td>
+                    <td>@item.Room</td>
+
+                    <td>
+                        <a href="/Teacher/Edit/@item.Id" class="btn btn-warning btn-sm">Edit</a>
+
+                        <a href="/Teacher/Delete/@item.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this entry?')">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Principal Dashboard";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+
+    <!-- 🔥 WELCOME + TITLE -->
+    <div class="text-center mb-4">
+
+        <h5 class="mb-2">
+            Welcome, @Context.Session.GetString("UserName") 👋
+        </h5>
+
+        <h2 class="fw-bold">Principal Dashboard</h2>
+
+        <p class="text-muted">Search Faculty & View Current Location</p>
+    </div>
+
+    <!-- 🔍 SEARCH BOX -->
+    <div class="card shadow p-4 col-md-6 mx-auto">
+
+        <form method="post">
+
+            <label class="fw-bold mb-2">Enter Teacher Name:</label>
+
+            <input type="text"
+                   name="teacherName"
+                   class="form-control mb-3"
+                   placeholder="e.g. John / Sakshi"
+                   required />
+
+            <button type="submit" class="btn btn-primary w-100">
+                🔍 Search
+            </button>
+
+        </form>
+
+        <!-- ❌ ERROR -->
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger mt-3 text-center">
+                @ViewBag.Error
+            </div>
+        }
+    </div>
+
+    <!-- ✅ RESULT -->
+    @if (ViewBag.Teacher != null)
+    {
+        <div class="card shadow mt-5 p-4">
+
+            <h4 class="text-center mb-3">Faculty Details</h4>
+
+            <div class="text-center mb-3">
+                <p><b>Name:</b> @ViewBag.Teacher.Name</p>
+                <p><b>Department:</b> @ViewBag.Teacher.Department</p>
+            </div>
+
+            <hr />
+
+            <h5 class="text-center mb-3">📍 Current Status</h5>
+
+            @if (ViewBag.Current != null)
+            {
+                <div class="alert alert-success text-center">
+                    <b>@ViewBag.Teacher.Name</b> is currently taking
+                    <b>@ViewBag.Current.Subject</b><br />
+                    in <b>Room @ViewBag.Current.Room</b>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    No class scheduled at this time
+                </div>
+            }
+
+            <!-- 📅 BUTTON -->
+            <div class="text-center mt-3">
+                <a href="/Principal/ViewTimetable?id=@ViewBag.Teacher.Id"
+                       class="btn btn-dark">
+                    📅 View Full Timetable
+                </a>
+            </div>
+
+        </div>
+    }
+
+</div>

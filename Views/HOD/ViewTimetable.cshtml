@@ -1,0 +1,68 @@
+﻿@model List<FacultyMonitoringSystem.Models.TimetableEntry>
+
+
+
+<div class="text-center mb-3">
+    <h2>📅 Teacher Timetable</h2>
+    <p class="text-muted">Weekly Schedule Overview</p>
+</div>
+
+@{
+    var days = new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday" };
+
+    var slots = new[]
+    {
+        "09:30-10:30",
+        "10:30-11:30",
+        "11:30-12:30",
+        "12:30-13:30",
+        "13:30-14:30",
+        "14:30-15:30",
+        "15:30-16:30",
+        
+
+    };
+}
+
+<table class="table table-bordered text-center">
+
+    <tr>
+        <th>Day</th>
+        @foreach (var slot in slots)
+        {
+            <th>@slot</th>
+        }
+    </tr>
+
+    @foreach (var day in days)
+    {
+        <tr>
+            <td>@day</td>
+
+            @foreach (var slot in slots)
+            {
+                var time = slot.Split('-');
+                var start = TimeSpan.Parse(time[0]);
+                var end = TimeSpan.Parse(time[1]);
+
+                var entry = Model.FirstOrDefault(e =>
+                    e.Day == day &&
+                    e.StartTime == start &&
+                    e.EndTime == end
+                );
+
+                if (entry != null)
+                {
+                    <td>
+                        <b>@entry.Subject</b><br />
+                        <small>@entry.Room</small>
+                    </td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+            }
+        </tr>
+    }
+</table>
